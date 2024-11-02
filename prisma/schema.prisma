@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id         Int          @id @default(autoincrement())
+  name       String       @db.VarChar(255)
+  address    String       @db.VarChar(255)
+  classes    Class[]      @relation("Enrollments")
+  Enrollment Enrollment[]
+
+  @@map("students")
+}
+
+model Class {
+  id         Int          @id @default(autoincrement())
+  subject    String       @db.VarChar(255)
+  students   Student[]    @relation("Enrollments")
+  Enrollment Enrollment[]
+
+  @@map("class")
+}
+
+model Enrollment {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  class     Class   @relation(fields: [classId], references: [id])
+  classId   Int
+
+  @@unique([studentId, classId])
+  @@map("enrollments")
+}
