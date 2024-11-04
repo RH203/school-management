@@ -7,6 +7,8 @@ import { WinstonModule } from 'nest-winston';
 import { SeederModule } from './seeder/seeder.module';
 import * as winston from 'winston';
 import { SeederService } from './seeder/seeder/seeder.service';
+import { StudentsModule } from './students/students.module';
+import { ValidationModule } from './validation/validation.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { SeederService } from './seeder/seeder/seeder.service';
     }),
     PrismaModule,
     SeederModule,
+    StudentsModule,
+    ValidationModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, SeederService],
