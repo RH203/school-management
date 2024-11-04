@@ -1,7 +1,10 @@
+import { ClassDto } from './class.dto';
+
 export class StudentDto {
   id: number;
   name: string;
   address: string;
+  subjects: ClassDto[];
 }
 
 export class CreateStudentDto {
