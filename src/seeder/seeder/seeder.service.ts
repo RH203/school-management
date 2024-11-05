@@ -44,7 +44,7 @@ export class SeederService {
 
     // Create data students
     const students = await Promise.all(
-      Array.from({ length: 10 }, async () => {
+      Array.from({ length: 35 }, async () => {
         return this.prisma.student.create({
           data: {
             name: faker.person.fullName(),

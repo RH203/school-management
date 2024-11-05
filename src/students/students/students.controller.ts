@@ -1,5 +1,5 @@
-import { Controller, Get, Inject, Logger } from '@nestjs/common';
-import { StudentDto } from '../../dtos/student.dto';
+import { Controller, Get, Inject, Logger, Query } from '@nestjs/common';
+import { StudentDto } from '../../common/dtos/student.dto';
 import { StudentsService } from './students.service';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 
@@ -19,6 +19,21 @@ export class StudentsController {
         level: 'error',
         message: e.message,
       });
+    }
+  }
+
+  // Fetch one data student by id
+  @Get('/:id')
+  getById(@Query('id') id: number): Promise<StudentDto> {
+    try {
+      const student = this.studentsService.getDataById(id);
+      return;
+    } catch (e) {
+      this.logger.error({
+        level: 'error',
+        message: e.message,
+      });
+      throw new Error('Failed to get student');
     }
   }
 
